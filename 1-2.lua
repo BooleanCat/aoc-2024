@@ -15,16 +15,16 @@ file:close()
 
 local similarity = 0
 
-for i = 1, #lefts, 1 do
+for _, left in ipairs(lefts) do
     local count = 0
     
     for _, value in ipairs(rights) do
-        if value == lefts[i] then
+        if value == left then
             count = count + 1
         end
     end
 
-    similarity = similarity + count * lefts[i]
+    similarity = similarity + count * left
 end
 
 print(similarity)
