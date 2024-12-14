@@ -1,7 +1,4 @@
 local file = io.open("data/2.data")
-if not file then
-    error("failed to open file")
-end
 
 local rows = {}
 
@@ -18,34 +15,18 @@ end
 file:close()
 
 function is_matching_row(row)
+    local get_change
+
     if row[1] > row[2] then
-        return is_matching_row_decreasing(row)
+        get_change = function (a, b) return b - a end
+    else
+        get_change = function (a, b) return a - b end
     end
 
-    return is_matching_row_increasing(row)
-end
-
-function is_matching_row_increasing(row)
     local previous = row[1]
 
     for i = 2, #row do
-        local difference = row[i] - previous
-
-        if difference < 1 or difference > 3 then
-            return false
-        end
-
-        previous = row[i]
-    end
-
-    return true
-end
-
-function is_matching_row_decreasing(row)
-    local previous = row[1]
-
-    for i = 2, #row do
-        local difference = previous - row[i]
+        local difference = get_change(row[i], previous)
 
         if difference < 1 or difference > 3 then
             return false

@@ -1,7 +1,4 @@
 local file = io.open("data/1.data")
-if not file then
-    error("failed to open file")
-end
 
 local lefts, rights = {}, {}
 
